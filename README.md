@@ -2,8 +2,8 @@
 Author: Amber Lin. 
 
 This repository contains:
-- **Quarto Report:** [View Report](https://AmberLin623.github.io/Assignment5/docs/assignment5.html)
-- **Quarto Presentation:** [View Presentation](https://AmberLin623.github.io/Assignment5/docs/presentation.html)
+- **Quarto Report:** [View Report](https://AmberLin623.github.io/Assignment5/assignment5.html)
+- **Quarto Presentation:** [View Presentation](https://AmberLin623.github.io/Assignment5/presentation.html)
 - `report.qmd` (Quarto report source file)
 - `presentation.qmd` (Quarto presentation source file)
 - `references.bib` (Bibliography file)
