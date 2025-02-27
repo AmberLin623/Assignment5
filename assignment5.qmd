@@ -1,0 +1,88 @@
+---
+title: "Assignment5-Lin,Amber"
+author: "Amber Lin"
+date: "`r Sys.Date()`"
+output: html
+editor: visual
+bibliography: references.bib
+nocite: "@*"
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+2.  Load the dataset
+
+```{r}
+library(tidyverse)
+
+df <- read.csv("wdi.csv")
+head(df)
+```
+
+3.  Here is a basic exploration on gdp per capita, life expectancy, and the unemployemtn rate in the data. For gdp per capita, the stats is left skewed given the difference between median and mean.
+
+```{r}
+selected_columns <- c("gdp_per_capita", "life_expectancy", "unemployment_rate")
+df_selected <- df %>% select(all_of(selected_columns))
+
+# Generate summary statistics
+summary_statistics <- summary(df_selected)
+
+# Print the results
+print(summary_statistics)
+```
+
+3+4: We can tell that the GDP per capita variable is left skewed with a few outliers. Most countires have GDP per capita under \$50,000.
+
+```{r}
+ggplot(df, aes(x = gdp_per_capita)) +
+  geom_histogram(fill = "blue", bins = 30) +
+  labs(title = "GDP per Capita Distribution", x = "GDP per Capita ($)", y = "Frequency")
+```
+
+3+4 There is a positive correlation between GDP per capita and life frequency.
+
+```{r}
+ggplot(df, aes(x = gdp_per_capita, y = life_expectancy)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Life Expectancy vs GDP per Capita", x = "GDP per Capita ($)", y = "Life Expectancy (Years)")
+```
+
+3+4. It seems like there is a slightly positive correlation between one country's education expendiure (gdp share) and the unemployment rate.
+
+```{r}
+
+ggplot(df, aes(x = unemployment_rate, y = education_expenditure_gdp_share)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "Unemployment Rate vs Education Expenditure",
+       x = "Unemployment Rate (%)",
+       y = "Education Expenditure (% of GDP)") +
+  theme_minimal()
+
+
+```
+
+5.  
+| mean_gdppercapita | mean_life_expectancy |
+|----------|----------|
+| 20346   | 72.42   |
+
+6.  
+
+```{r}
+key_stats <- df%>%summarise(
+    mean_gdp_per_capita = mean(gdp_per_capita, na.rm = TRUE),
+    median_gdp_per_capita = median(gdp_per_capita, na.rm = TRUE),
+    mean_life_expectancy = mean(life_expectancy, na.rm = TRUE),
+    median_life_expectancy = median(life_expectancy, na.rm = TRUE),
+    mean_unemployment_rate = mean(unemployment_rate, na.rm = TRUE),
+    median_unemployment_rate = median(unemployment_rate, na.rm = TRUE)
+  )
+key_stats
+```
+
+## References
+

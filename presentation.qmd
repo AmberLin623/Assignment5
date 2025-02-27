@@ -1,0 +1,88 @@
+---
+title: "Exploratory Data Analysis"
+author: "Amber Lin"
+date: "`r Sys.Date()`"
+format: 
+  revealjs:
+    theme: night
+    transition: fade  # Smooth transition effect
+    slide-number: true 
+bibliography: references.bib
+nocite: "@*"
+---
+
+# Exploratory Data Analysis of Three World Development Indcators
+-- focusing on GDP, Life Expectancy, Unemployemtn Rate
+
+## Introduction
+- This presentation explores three key economic indicators:
+  - **GDP per Capita**
+  - **Life Expectancy**
+  - **Unemployment Rate**
+
+## Data Overview
+- The dataset contains key economic indicators.
+- First few rows:
+
+```{r, echo=FALSE}
+library(tidyverse)
+
+# Load the dataset
+df <- read.csv("wdi.csv")
+
+# Show first few rows
+library(knitr)
+kable(head(df, 5), caption = "Sample of the Dataset")
+```
+
+## Summary Statistics
+- Summary of GDP per Capita, Life Expectancy, and Unemployment Rate:
+
+```{r, echo=FALSE}
+library(knitr)
+selected_columns <- c("gdp_per_capita", "life_expectancy", "unemployment_rate")
+df_selected <- df %>% select(all_of(selected_columns))
+summary_statistics <- summary(df_selected)
+kable(summary_statistics, caption = "Summary Statistics of Key Indicators: GDP, Life Expectancy, and Unemployment Rate")
+```
+
+## GDP per Capita Distribution
+- The data is **left-skewed**, meaning most countries have **GDP per capita below $50,000**.
+
+```{r, echo=FALSE}
+ggplot(df, aes(x = gdp_per_capita)) +
+  geom_histogram(fill = "blue", bins = 30) +
+  labs(title = "GDP per Capita Distribution", x = "GDP per Capita ($)", y = "Frequency")
+```
+
+## GDP vs Life Expectancy
+- A **positive correlation** exists between **GDP per capita** and **life expectancy**.
+- This suggests that **economic growth leads to longer life expectancy**.
+
+```{r, echo=FALSE}
+ggplot(df, aes(x = gdp_per_capita, y = life_expectancy)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Life Expectancy vs GDP per Capita", x = "GDP per Capita ($)", y = "Life Expectancy (Years)")
+```
+
+
+## Unemployment Rate & Education Expenditure
+- There is a **slightly positive correlation** between **education expenditure and unemployment rate**.
+
+```{r, echo=FALSE}
+ggplot(df, aes(x = unemployment_rate, y = education_expenditure_gdp_share)) +
+  geom_point(alpha = 0.5, color = "blue") +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "Unemployment Rate vs Education Expenditure",
+       x = "Unemployment Rate (%)",
+       y = "Education Expenditure (% of GDP)") +
+  theme_minimal()
+```
+
+
+## Conclusion
+- **GDP per Capita is left-skewed**: Most countries have lower GDP.
+- **Higher GDP → Higher Life Expectancy**: Economic development improves health.
+- **Education Spending & Unemployment**: No strong relationship found.
+
+## References
