@@ -6,7 +6,6 @@ This repository contains:
 - **Quarto Presentation:** [View Presentation](https://AmberLin623.github.io/Assignment5/docs/presentation.html)
 - `report.qmd` (Quarto report source file)
 - `presentation.qmd` (Quarto presentation source file)
-- `report.pdf` (PDF version of the report)
 - `references.bib` (Bibliography file)
 - `wdi.csv` (Dataset used)
 
